@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Services Trade Restrictiveness Index (by OECD)</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      background: #f9fafc;
+      font-size: 16px;
+      color: #222;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    button {
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+    label, select, button {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    table {
+      font-size: 15px;
+    }
+    #map {
+      border: 1px solid #ccc;
+    }
+    #lineChart {
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+    #tooltip {
+      position: fixed;
+      opacity: 0;
+      z-index: 9999;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 8px;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    select, button {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="text-align: center; margin-bottom: 10px;">
+    <h2 style="margin-bottom: 15px;">Digital Services Trade Restrictiveness Index (by OECD)</h2>
+    <label for="measureSelect">Indicator:</label>
+    <select id="measureSelect"></select>
+  </div>
+
+  <!-- 上段：地図エリア -->
+  <div style="border: 1px solid #ccc; background: white; padding: 10px; max-width: 1200px; margin: auto;">
+    <svg id="map" width="100%" height="500" style="aspect-ratio: 2 / 1;"></svg>
+    <div style="max-width: 1200px; margin: auto; text-align: right; margin-top: 5px;">
+      <button id="resetZoomButton">Reset Zoom</button>
+    </div>
+  </div>
+
+  <!-- 下段：折れ線＋凡例＋リスト -->
+  <div style="display: flex; justify-content: space-between; gap: 20px; max-width: 1200px; margin: 20px auto 30px;">
+    
+    <!-- 折れ線グラフ + ボタン -->
+    <div style="flex: 2; border: 1px solid #ccc; background: white; padding: 10px;">
+      <svg id="lineChart" width="700" height="350" style="width: 100%;"></svg> <!-- ← 幅を縮小 -->
+      <div style="margin-top: 10px;">
+        <div id="lineChartLegend"
+             style="display: flex; flex-wrap: wrap; gap: 10px; max-height: 70px; overflow-y: auto;">
+        </div>
+        <div style="margin-top: 10px; text-align: right;">
+          <button onclick="resetLineChart()">Clear Chart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 国リスト -->
+    <div id="countryList" style="flex: 1; border: 1px solid #ccc; background: white; padding: 10px;">
+      <h4 style="margin-top: 4px; margin-bottom: 5px;">Country List</h4>
+      <table style="width: 100%; table-layout: fixed;">
+        <thead>
+          <tr><th style="text-align: left;">Country</th><th style="text-align: right;">Value</th></tr>
+        </thead>
+      </table>
+      <div id="countryScrollBox" style="margin-top: 10px; max-height: 400px; overflow-y: auto;">
+        <table id="countryTable" style= "margin-top: 10px; margin-bottom: 5px; width: 100%; table-layout: fixed;">
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div id="tooltip"></div> -->
+  <div id="tooltip" style="position: absolute; opacity: 0; background: white; border: 1px solid #ccc; padding: 10px; pointer-events: none; font-size: 13px;"></div>
+
+
+  <script src="countryCodeToName.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
