@@ -504,7 +504,7 @@ async function drawMap() {
 
   await fetchWorldBankData('NY.GDP.MKTP.CD', gdpData);
   await fetchWorldBankData('SP.POP.TOTL', populationData);
-  const world = await d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson");
+  const world = await d3.json("world.geojson");
 
   g.selectAll("path")
     .data(world.features)
