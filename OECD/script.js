@@ -491,7 +491,7 @@ function resetLineChart() {
 }
 
 async function drawMap() {
-  const response = await fetch('digital_trade_index_all_data.json');
+  const response = await fetch('./digital_trade_index_all_data.json');
   allData = await response.json();
   years = [...new Set(allData.map(d => +d.TIME_PERIOD))].sort();
   currentYear = years[0];
